@@ -30,11 +30,11 @@
         {
             this.textBoxURLforScraping = new System.Windows.Forms.TextBox();
             this.buttonCreateSitemap = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxSitemap = new System.Windows.Forms.RichTextBox();
             this.labelURLforScraping = new System.Windows.Forms.Label();
             this.labelSitemap = new System.Windows.Forms.Label();
             this.buttonStartScraping = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxEmailAddresses = new System.Windows.Forms.RichTextBox();
             this.labelEmailAddresses = new System.Windows.Forms.Label();
             this.buttonSaveAFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -56,14 +56,14 @@
             this.buttonCreateSitemap.UseVisualStyleBackColor = true;
             this.buttonCreateSitemap.Click += new System.EventHandler(this.buttonStartScraping_Click);
             // 
-            // richTextBox1
+            // richTextBoxSitemap
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(15, 74);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(306, 96);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.richTextBoxSitemap.Location = new System.Drawing.Point(15, 74);
+            this.richTextBoxSitemap.Name = "richTextBoxSitemap";
+            this.richTextBoxSitemap.Size = new System.Drawing.Size(306, 96);
+            this.richTextBoxSitemap.TabIndex = 2;
+            this.richTextBoxSitemap.Text = "";
+            this.richTextBoxSitemap.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // labelURLforScraping
             // 
@@ -94,13 +94,13 @@
             this.buttonStartScraping.Text = "Start Scraping";
             this.buttonStartScraping.UseVisualStyleBackColor = true;
             // 
-            // richTextBox2
+            // richTextBoxEmailAddresses
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(15, 258);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(306, 146);
-            this.richTextBox2.TabIndex = 6;
-            this.richTextBox2.Text = "";
+            this.richTextBoxEmailAddresses.Location = new System.Drawing.Point(15, 258);
+            this.richTextBoxEmailAddresses.Name = "richTextBoxEmailAddresses";
+            this.richTextBoxEmailAddresses.Size = new System.Drawing.Size(306, 146);
+            this.richTextBoxEmailAddresses.TabIndex = 6;
+            this.richTextBoxEmailAddresses.Text = "";
             // 
             // labelEmailAddresses
             // 
@@ -129,11 +129,11 @@
             this.ClientSize = new System.Drawing.Size(339, 450);
             this.Controls.Add(this.buttonSaveAFile);
             this.Controls.Add(this.labelEmailAddresses);
-            this.Controls.Add(this.richTextBox2);
+            this.Controls.Add(this.richTextBoxEmailAddresses);
             this.Controls.Add(this.buttonStartScraping);
             this.Controls.Add(this.labelSitemap);
             this.Controls.Add(this.labelURLforScraping);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.richTextBoxSitemap);
             this.Controls.Add(this.buttonCreateSitemap);
             this.Controls.Add(this.textBoxURLforScraping);
             this.Name = "App";
@@ -147,11 +147,11 @@
 
         private System.Windows.Forms.TextBox textBoxURLforScraping;
         private System.Windows.Forms.Button buttonCreateSitemap;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxSitemap;
         private System.Windows.Forms.Label labelURLforScraping;
         private System.Windows.Forms.Label labelSitemap;
         private System.Windows.Forms.Button buttonStartScraping;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox richTextBoxEmailAddresses;
         private System.Windows.Forms.Label labelEmailAddresses;
         private System.Windows.Forms.Button buttonSaveAFile;
     }

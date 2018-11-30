@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,14 @@ namespace Email_Scraper
 {
     public partial class App : Form
     {
+
+        HtmlWeb hw = new HtmlWeb(); ///<remarks> HTML Agility Pack</remarks>
+        List<string> hrefTags = new List<string>(); //Sitemap from URL List
+        List<string> emailAddresses = new List<string>(); //Email Addresss List
+
+
+
+
         public App()
         {
             InitializeComponent();
@@ -55,22 +64,31 @@ namespace Email_Scraper
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
+                HtmlAgilityPack.HtmlDocument doc = hw.Load(urlAddress);
 
-                if (response.CharacterSet == null)
+                //Add links from URL posted by the user
+                foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
                 {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    HtmlAttribute att = link.Attributes["href"];
+
+                    //richTextBoxSitemap.Text = att.Value;
+                    //richTextBoxSitemap.AppendText(att.Value +"\r\n");
+                    hrefTags.Add(att.Value);
                 }
 
-                string data = readStream.ReadToEnd();
-                Console.WriteLine(data);
-                response.Close();
-                readStream.Close();
+
+                //
+                foreach (HtmlNode email in doc.DocumentNode.SelectNodes("//a[@href]"))
+                {
+                    HtmlAttribute att = email.Attributes["href"];
+
+                    if (att.Value.StartsWith("mailto:"))
+                    {
+                        //richTextBoxEmailAddresses.AppendText(att.Value.Split(':')[1] + "\r\n");
+                        emailAddresses.Add(att.Value.Split(':')[1]);
+                    }
+                }
+
 
 
             }
