@@ -46,17 +46,24 @@ namespace Email_Scraper
 
             try
             {
-                getHTML(urlAddress);
+                createSitemapAndgetHTML(urlAddress);
+            }
+            catch (Exception)
+            {
+                //handle exception
+            }
+            try
+            {
+                getHTMLfromSitemap();
             }
             catch (Exception)
             {
                 //handle exception
             }
 
-
         }
 
-        private void getHTML(string urlAddress)
+        private void createSitemapAndgetHTML(string urlAddress)
         {
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
@@ -71,8 +78,9 @@ namespace Email_Scraper
                 {
                     HtmlAttribute att = link.Attributes["href"];
 
-                    //richTextBoxSitemap.Text = att.Value;
-                    //richTextBoxSitemap.AppendText(att.Value +"\r\n");
+                    
+                    richTextBoxSitemap.AppendText(att.Value +"\r\n");
+                    richTextBoxSitemap.ReadOnly = true;
                     hrefTags.Add(att.Value);
                 }
 
@@ -84,15 +92,62 @@ namespace Email_Scraper
 
                     if (att.Value.StartsWith("mailto:"))
                     {
-                        //richTextBoxEmailAddresses.AppendText(att.Value.Split(':')[1] + "\r\n");
+                        richTextBoxEmailAddresses.AppendText(att.Value.Split(':')[1] + "\r\n");
                         emailAddresses.Add(att.Value.Split(':')[1]);
                     }
                 }
 
 
 
+            }       }
+
+
+        private async void getHTMLfromSitemap()
+        {
+
+            foreach (var url in hrefTags)
+            {
+                Console.WriteLine(url);
+
+                await Task.Run(() =>
+                {
+                    {
+                        try
+                        {
+                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                Task.Run(() =>
+                                {
+
+                                    HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+
+                                    foreach (HtmlNode email in doc.DocumentNode.SelectNodes("//a[@href]"))
+                                    {
+                                        HtmlAttribute att = email.Attributes["href"];
+
+                                        if (att.Value.StartsWith("mailto:"))
+                                        {                                         
+                                                richTextBoxEmailAddresses.AppendText(att.Value.Split(':')[1] + "\r\n");
+                                                emailAddresses.Add(att.Value.Split(':')[1]);
+                                        
+                                        }
+                                    }
+
+                                });
+                        }
+                        }
+                        catch (Exception)
+                        {
+                            //handle exception
+                        }
+                    }
+                });
             }
         }
+
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
